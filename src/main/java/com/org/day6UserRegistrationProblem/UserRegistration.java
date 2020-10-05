@@ -3,6 +3,7 @@ package com.org.day6UserRegistrationProblem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,8 +24,10 @@ public class UserRegistration {
 			String firstName = sc.nextLine();
 			logger.info("Enter the last name: ");
 			String lastName = sc.nextLine();
-			if (validateName(firstName) && validateName(lastName)) {
-				usersList.add(new User(firstName, lastName));
+			logger.info("Enter the email: ");
+			String email = sc.nextLine();
+			if (validateName(firstName) && validateName(lastName) && validateEmail(email)) {
+				usersList.add(new User(firstName, lastName, email));
 			}
 		logger.info("To add another use enter 1: ");
 		choice = Integer.parseInt(sc.nextLine());
@@ -36,6 +39,15 @@ public class UserRegistration {
 			return true;
 		} else {
 			logger.info("Invalid entry for a first_name or a last_name");
+			return false;
+		}
+	}
+	
+	public static boolean validateEmail(String email) {
+		if (email.matches("^[a-zA-Z0-9]+([_+-.]{1}[a-zA-Z0-9]+)?@[a-zA-Z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]{2,3})?$")) {
+			return true;
+		} else {
+			logger.info("Invalid entry for an email.");
 			return false;
 		}
 	}
@@ -53,11 +65,21 @@ public class UserRegistration {
 class User {
 	private String firstName;
 	private String lastName;
+	private String email;
 
-	public User(String firstName, String lastName) {
+	public User(String firstName, String lastName, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getFirstName() {
@@ -78,7 +100,7 @@ class User {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + "]";
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 
 }
