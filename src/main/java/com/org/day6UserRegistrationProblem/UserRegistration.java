@@ -66,7 +66,7 @@ public class UserRegistration {
 	}
 	
 	public static boolean validatePassword(String password) {
-		if (password.matches("^(?=.{8,}$)(?=.*[A-Z].*$).*$")) {
+		if (password.matches("^(?=.{8,}$)(?=.*[A-Z].*$)(?=.*[0-9].*$).*$")) {
 			return true;
 		} else {
 			logger.info("Invalid entry for a password");
