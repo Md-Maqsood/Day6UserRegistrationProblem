@@ -53,4 +53,11 @@ public class UserRegistrationTest {
 		boolean result = userReg.validateEmail("abc-100@yahoo.com");
 		Assert.assertTrue(result);
 	}
+	
+	@Test
+	public void givenEmail_WhenImproper_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validateEmail("abc..2002@gmail.com");
+		Assert.assertFalse(result);
+	}
 }
