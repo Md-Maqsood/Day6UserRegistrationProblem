@@ -18,4 +18,11 @@ public class UserRegistrationTest {
 		boolean result = userReg.validateName("Ma");
 		Assert.assertFalse(result);
 	}
+	
+	@Test
+	public void givenFirstName_WhenImproper_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validateName("Maq$ood");
+		Assert.assertFalse(result);
+	}
 }
