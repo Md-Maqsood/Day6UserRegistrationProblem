@@ -28,8 +28,10 @@ public class UserRegistration {
 			String email = sc.nextLine();
 			logger.info("Enter the phone number: ");
 			String phoneNo = sc.nextLine();
-			if (validateName(firstName) && validateName(lastName) && validateEmail(email)&&validatePhoneNo(phoneNo)) {
-				usersList.add(new User(firstName, lastName, email,phoneNo));
+			logger.info("Enter the password: ");
+			String password = sc.nextLine();
+			if (validateName(firstName) && validateName(lastName) && validateEmail(email)&&validatePhoneNo(phoneNo)&&validatePassword(password)) {
+				usersList.add(new User(firstName, lastName, email, phoneNo, password));
 			}
 		logger.info("To add another user enter 1: ");
 		choice = Integer.parseInt(sc.nextLine());
@@ -62,6 +64,15 @@ public class UserRegistration {
 			return false;
 		}
 	}
+	
+	public static boolean validatePassword(String password) {
+		if (password.matches("^.{8,}$")) {
+			return true;
+		} else {
+			logger.info("Invalid entry for a password");
+			return false;
+		}
+	}
 
 	public static void main(String[] args) {
 		UserRegistration userReg = new UserRegistration();
@@ -78,13 +89,23 @@ class User {
 	private String lastName;
 	private String email;
 	private String phoneNo;
+	private String password;
 
-	public User(String firstName, String lastName, String email, String phoneNo) {
+	public User(String firstName, String lastName, String email, String phoneNo, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNo = phoneNo;
+		this.password = password;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getPhoneNo() {
@@ -122,7 +143,7 @@ class User {
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNo=" + phoneNo
-				+ "]";
+				+ ", password=" + password + "]";
 	}
 
 }
