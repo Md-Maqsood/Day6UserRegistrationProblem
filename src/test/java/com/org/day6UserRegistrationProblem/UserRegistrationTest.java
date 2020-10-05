@@ -60,4 +60,11 @@ public class UserRegistrationTest {
 		boolean result = userReg.validateEmail("abc..2002@gmail.com");
 		Assert.assertFalse(result);
 	}
+	
+	@Test
+	public void givenPhoneNo_WhenProper_ShouldReturnTrue() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validatePhoneNo("91 8805141523");
+		Assert.assertTrue(result);
+	}
 }
