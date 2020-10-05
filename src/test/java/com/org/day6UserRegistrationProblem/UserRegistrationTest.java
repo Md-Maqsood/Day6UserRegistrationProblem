@@ -95,4 +95,11 @@ public class UserRegistrationTest {
 		boolean result = userReg.validatePassword("Skyi$Blue5");
 		Assert.assertTrue(result);
 	}
+	
+	@Test
+	public void givenPassword_WhenShort_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validatePassword("S$Ble5");
+		Assert.assertFalse(result);
+	}
 }
