@@ -81,4 +81,11 @@ public class UserRegistrationTest {
 		boolean result = userReg.validatePhoneNo("91 88@5141523");
 		Assert.assertFalse(result);
 	}
+	
+	@Test
+	public void givenPhoneNo_WhenHasLetters_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validatePhoneNo("91 88c5141523");
+		Assert.assertFalse(result);
+	}
 }
