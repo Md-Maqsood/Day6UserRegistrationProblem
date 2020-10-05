@@ -21,8 +21,10 @@ public class UserRegistration {
 		while (choice==1) {
 			logger.info("Enter the first name: ");
 			String firstName = sc.nextLine();
-			if (validateName(firstName)) {
-				usersList.add(new User(firstName));
+			logger.info("Enter the last name: ");
+			String lastName = sc.nextLine();
+			if (validateName(firstName) && validateName(lastName)) {
+				usersList.add(new User(firstName, lastName));
 			}
 		logger.info("To add another use enter 1: ");
 		choice = Integer.parseInt(sc.nextLine());
@@ -33,7 +35,7 @@ public class UserRegistration {
 		if (name.matches("^[A-Z][a-z]{2,}$")) {
 			return true;
 		} else {
-			logger.info("Invalid entry for a first_name");
+			logger.info("Invalid entry for a first_name or a last_name");
 			return false;
 		}
 	}
@@ -50,14 +52,24 @@ public class UserRegistration {
 
 class User {
 	private String firstName;
+	private String lastName;
 
-	public User(String firstName) {
+	public User(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -66,7 +78,7 @@ class User {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + "]";
+		return "User [firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 
 }
