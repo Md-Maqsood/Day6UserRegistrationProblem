@@ -102,4 +102,18 @@ public class UserRegistrationTest {
 		boolean result = userReg.validatePassword("S$Ble5");
 		Assert.assertFalse(result);
 	}
+	
+	@Test
+	public void givenPassword_WhenHasNoUppercase_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validatePassword("skyi$blue5");
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void givenPassword_WhenHasNoNumeric_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validatePassword("Skyi$Blue");
+		Assert.assertFalse(result);
+	}
 }
