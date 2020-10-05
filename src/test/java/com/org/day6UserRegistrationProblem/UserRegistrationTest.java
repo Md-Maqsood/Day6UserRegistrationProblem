@@ -67,4 +67,18 @@ public class UserRegistrationTest {
 		boolean result = userReg.validatePhoneNo("91 8805141523");
 		Assert.assertTrue(result);
 	}
+	
+	@Test
+	public void givenPhoneNo_WhenImproper_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validatePhoneNo("918805141523");
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void givenPhoneNo_WhenHasSpecialCharacters_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validatePhoneNo("91 88@5141523");
+		Assert.assertFalse(result);
+	}
 }
