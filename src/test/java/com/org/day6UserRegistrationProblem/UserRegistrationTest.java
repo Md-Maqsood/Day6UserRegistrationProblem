@@ -39,4 +39,11 @@ public class UserRegistrationTest {
 		boolean result = userReg.validateName("Al");
 		Assert.assertFalse(result);
 	}
+	
+	@Test
+	public void givenLastName_WhenImproper_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validateName("@lam");
+		Assert.assertFalse(result);
+	}
 }
