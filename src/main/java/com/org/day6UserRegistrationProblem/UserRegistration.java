@@ -24,7 +24,7 @@ public class UserRegistration {
 			if (validateName(firstName)) {
 				usersList.add(new User(firstName));
 			}
-		logger.info("To add another use enter 1: ");
+		logger.info("To add another user enter 1: ");
 		choice = Integer.parseInt(sc.nextLine());
 		}
 	}
