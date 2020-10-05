@@ -1,20 +1,14 @@
 package com.org.day6UserRegistrationProblem;
 
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Unit test for simple App.
- */
-public class UserRegistrationTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
-    }
+public class UserRegistrationTest {
+
+	@Test
+	public void givenFirstName_WhenProper_ShouldReturnTrue() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validateName("Maqsood");
+		Assert.assertTrue(result);
+	}
 }
