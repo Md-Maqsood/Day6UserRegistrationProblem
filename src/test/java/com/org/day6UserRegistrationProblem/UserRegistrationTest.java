@@ -123,4 +123,11 @@ public class UserRegistrationTest {
 		boolean result = userReg.validatePassword("SkyiBlue5");
 		Assert.assertFalse(result);
 	}
+	
+	@Test
+	public void givenPassword_WhenHasMoreThanOneSpecialCharacters_ShouldReturnFalse() {
+		UserRegistration userReg = new UserRegistration();
+		boolean result = userReg.validatePassword("Skyi$@Blue5");
+		Assert.assertFalse(result);
+	}
 }
