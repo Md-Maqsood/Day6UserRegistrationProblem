@@ -30,47 +30,48 @@ public class UserRegistration {
 			String phoneNo = sc.nextLine();
 			logger.info("Enter the password: ");
 			String password = sc.nextLine();
-			if (validateName(firstName) && validateName(lastName) && validateEmail(email)&&validatePhoneNo(phoneNo)&&validatePassword(password)) {
-				usersList.add(new User(firstName, lastName, email, phoneNo, password));
-			}
+				try {
+					if (validateName(firstName) && validateName(lastName) && validateEmail(email)&&validatePhoneNo(phoneNo)&&validatePassword(password)) {
+						usersList.add(new User(firstName, lastName, email, phoneNo, password));
+					}
+				} catch (InvalidNameException | InvalidEmailException | InvalidPhoneNoException
+						| InvalidPasswordException e) {
+					logger.info(e.getMessage());
+				}
 		logger.info("To add another user enter 1: ");
 		choice = Integer.parseInt(sc.nextLine());
 		}
 	}
 
-	public static boolean validateName(String name) {
+	public static boolean validateName(String name) throws InvalidNameException {
 		if (name.matches("^[A-Z][a-z]{2,}$")) {
 			return true;
 		} else {
-			logger.info("Invalid entry for a first_name or a last_name");
-			return false;
+			throw new InvalidNameException("Invalid entry for a first name or last name");
 		}
 	}
 	
-	public static boolean validateEmail(String email) {
+	public static boolean validateEmail(String email) throws InvalidEmailException {
 		if (email.matches("^[a-zA-Z0-9]+([_+-.]{1}[a-zA-Z0-9]+)?@[a-zA-Z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]{2,3})?$")) {
 			return true;
 		} else {
-			logger.info("Invalid entry for an email.");
-			return false;
+			throw new InvalidEmailException("Invalid entry for an email");
 		}
 	}
 	
-	public static boolean validatePhoneNo(String phoneNo) {
+	public static boolean validatePhoneNo(String phoneNo) throws InvalidPhoneNoException {
 		if (phoneNo.matches("^[1-9]{1,3}[ ]{1}[1-9]{1}[0-9]{9}$")) {
 			return true;
 		} else {
-			logger.info("Invalid entry for a phone number");
-			return false;
+			throw new InvalidPhoneNoException("Invalid entry for a phone number");
 		}
 	}
 	
-	public static boolean validatePassword(String password) {
+	public static boolean validatePassword(String password) throws InvalidPasswordException {
 		if (password.matches("^(?=.{8,}$)(?=.*[A-Z].*$)(?=.*[0-9].*$)(?=[a-zA-Z0-9]*[^a-z^A-Z^0-9^ ][a-zA-Z0-9]*$).*$")) {
 			return true;
 		} else {
-			logger.info("Invalid entry for a password");
-			return false;
+			throw new InvalidPasswordException("Invalid entry for a password");
 		}
 	}
 

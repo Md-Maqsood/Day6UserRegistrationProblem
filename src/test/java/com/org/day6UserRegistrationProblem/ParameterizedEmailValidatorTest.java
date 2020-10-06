@@ -49,10 +49,19 @@ public class ParameterizedEmailValidatorTest {
 	}
 	
 	@Test
-	public void givenEmail_ShouldReturnTrueOrFalse_AccordingToValidity() {
+	public void givenEmail_ShouldReturnTrueOrThrowInvalidEmailException_AccordingToValidity() {
 		UserRegistration userReg=new UserRegistration();
-		boolean result=userReg.validateEmail(this.email);
-		Assert.assertEquals(this.expectedResult, result);
+		boolean result=false;
+		try {
+			result = userReg.validateEmail(this.email);
+		} catch (InvalidEmailException e) {
+			if("Invalid entry for an email"==e.getMessage()) {
+				result=false;
+			}else {
+				result=true;
+			}
+		}
+		Assert.assertEquals(this.expectedResult, result);		
 	}
 	
 }
