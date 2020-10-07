@@ -47,7 +47,7 @@ public class UserRegistration {
 		if (name.matches("^[A-Z][a-z]{2,}$")) {
 			return true;
 		} else {
-			throw new InvalidNameException("Invalid entry for a first name or last name");
+			throw new InvalidNameException(ExceptionType.INVALID_NAME,"Invalid entry for a first name or last name");
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class UserRegistration {
 		if (email.matches("^[a-zA-Z0-9]+([_+-.]{1}[a-zA-Z0-9]+)?@[a-zA-Z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]{2,3})?$")) {
 			return true;
 		} else {
-			throw new InvalidEmailException("Invalid entry for an email");
+			throw new InvalidEmailException(ExceptionType.INVALID_EMAIL,"Invalid entry for an email");
 		}
 	}
 	
@@ -63,7 +63,7 @@ public class UserRegistration {
 		if (phoneNo.matches("^[1-9]{1,3}[ ]{1}[1-9]{1}[0-9]{9}$")) {
 			return true;
 		} else {
-			throw new InvalidPhoneNoException("Invalid entry for a phone number");
+			throw new InvalidPhoneNoException(ExceptionType.INVALID_PHONENO,"Invalid entry for a phone number");
 		}
 	}
 	
@@ -71,7 +71,7 @@ public class UserRegistration {
 		if (password.matches("^(?=.{8,}$)(?=.*[A-Z].*$)(?=.*[0-9].*$)(?=[a-zA-Z0-9]*[^a-z^A-Z^0-9^ ][a-zA-Z0-9]*$).*$")) {
 			return true;
 		} else {
-			throw new InvalidPasswordException("Invalid entry for a password");
+			throw new InvalidPasswordException(ExceptionType.INVALID_PASSWORD,"Invalid entry for a password");
 		}
 	}
 

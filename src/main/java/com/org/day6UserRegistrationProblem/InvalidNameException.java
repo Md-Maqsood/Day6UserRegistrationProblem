@@ -1,9 +1,10 @@
 package com.org.day6UserRegistrationProblem;
 
 public class InvalidNameException extends Exception {
-
-	public InvalidNameException(String message) {
+	ExceptionType type;
+	public InvalidNameException(ExceptionType type,String message) {
 		super(message);
+		this.type=type;
 	}
 	
 }
