@@ -43,7 +43,7 @@ public class UserRegistration {
 		}
 	}
 
-	public static boolean validateName(String name) throws InvalidNameException {
+	public boolean validateName(String name) throws InvalidNameException {
 		if (name.matches("^[A-Z][a-z]{2,}$")) {
 			return true;
 		} else {
@@ -51,7 +51,7 @@ public class UserRegistration {
 		}
 	}
 	
-	public static boolean validateEmail(String email) throws InvalidEmailException {
+	public boolean validateEmail(String email) throws InvalidEmailException {
 		if (email.matches("^[a-zA-Z0-9]+([_+-.]{1}[a-zA-Z0-9]+)?@[a-zA-Z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]{2,3})?$")) {
 			return true;
 		} else {
@@ -59,7 +59,7 @@ public class UserRegistration {
 		}
 	}
 	
-	public static boolean validatePhoneNo(String phoneNo) throws InvalidPhoneNoException {
+	public boolean validatePhoneNo(String phoneNo) throws InvalidPhoneNoException {
 		if (phoneNo.matches("^[1-9]{1,3}[ ]{1}[1-9]{1}[0-9]{9}$")) {
 			return true;
 		} else {
@@ -67,7 +67,7 @@ public class UserRegistration {
 		}
 	}
 	
-	public static boolean validatePassword(String password) throws InvalidPasswordException {
+	public boolean validatePassword(String password) throws InvalidPasswordException {
 		if (password.matches("^(?=.{8,}$)(?=.*[A-Z].*$)(?=.*[0-9].*$)(?=[a-zA-Z0-9]*[^a-z^A-Z^0-9^ ][a-zA-Z0-9]*$).*$")) {
 			return true;
 		} else {
