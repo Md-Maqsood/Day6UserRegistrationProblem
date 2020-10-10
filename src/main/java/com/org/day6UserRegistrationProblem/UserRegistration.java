@@ -7,80 +7,92 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@FunctionalInterface
+interface Validator{
+	public boolean validate(String entry) throws InvalidEntryException ;
+}
+
 public class UserRegistration {
 	private final static Logger logger=LogManager.getLogger(UserRegistration.class);
 	static Scanner sc = new Scanner(System.in);
 	List<User> usersList;
-
+	
+	/**
+	 * uc13
+	 */
+	public Validator nameValidator=name->{
+		if (name.matches("^[A-Z][a-z]{2,}$")) {
+			return true;
+		} else {
+			throw new InvalidEntryException(ExceptionType.INVALID_NAME,"Invalid entry for a first name or last name");
+		}
+	};
+	
+	/**
+	 * uc13
+	 */
+	public Validator emailValidator=email->{
+		if (email.matches("^[a-zA-Z0-9]+([_+-.]{1}[a-zA-Z0-9]+)?@[a-zA-Z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]{2,3})?$")) {
+			return true;
+		} else {
+			throw new InvalidEntryException(ExceptionType.INVALID_EMAIL,"Invalid entry for an email");
+		}
+	};
+	
+	/**
+	 * uc13
+	 */
+	public Validator phoneNoValidator=phoneNo->{
+		if (phoneNo.matches("^[1-9]{1,3}[ ]{1}[1-9]{1}[0-9]{9}$")) {
+			return true;
+		} else {
+			throw new InvalidEntryException(ExceptionType.INVALID_PHONENO,"Invalid entry for a phone number");
+		}
+	};
+	
+	/**
+	 * uc13
+	 */
+	public Validator passwordValidator=password->{
+		if (password.matches("^(?=.{8,}$)(?=.*[A-Z].*$)(?=.*[0-9].*$)(?=[a-zA-Z0-9]*[^a-z^A-Z^0-9^ ][a-zA-Z0-9]*$).*$")) {
+			return true;
+		} else {
+			throw new InvalidEntryException(ExceptionType.INVALID_PASSWORD,"Invalid entry for a password");
+		}
+	};
+	
 	public UserRegistration() {
 		super();
 		usersList = new ArrayList<User>();
 	}
 	
 	public void addUser() {
-		int choice=1;
-		while (choice==1) {
-			logger.info("Enter the first name: ");
+		do{
+			logger.debug("Enter the first name: ");
 			String firstName = sc.nextLine();
-			logger.info("Enter the last name: ");
+			logger.debug("Enter the last name: ");
 			String lastName = sc.nextLine();
-			logger.info("Enter the email: ");
+			logger.debug("Enter the email: ");
 			String email = sc.nextLine();
-			logger.info("Enter the phone number: ");
+			logger.debug("Enter the phone number: ");
 			String phoneNo = sc.nextLine();
-			logger.info("Enter the password: ");
+			logger.debug("Enter the password: ");
 			String password = sc.nextLine();
 				try {
-					if (validateName(firstName) && validateName(lastName) && validateEmail(email)&&validatePhoneNo(phoneNo)&&validatePassword(password)) {
+					if (nameValidator.validate(firstName) && nameValidator.validate(lastName) && emailValidator.validate(email) && phoneNoValidator.validate(phoneNo) && passwordValidator.validate(password)) {
 						usersList.add(new User(firstName, lastName, email, phoneNo, password));
 					}
-				} catch (InvalidNameException | InvalidEmailException | InvalidPhoneNoException
-						| InvalidPasswordException e) {
-					logger.info(e.getMessage());
+				} catch (InvalidEntryException e) {
+					logger.debug(e.getMessage());
 				}
-		logger.info("To add another user enter 1: ");
-		choice = Integer.parseInt(sc.nextLine());
-		}
-	}
-
-	public boolean validateName(String name) throws InvalidNameException {
-		if (name.matches("^[A-Z][a-z]{2,}$")) {
-			return true;
-		} else {
-			throw new InvalidNameException(ExceptionType.INVALID_NAME,"Invalid entry for a first name or last name");
-		}
-	}
-	
-	public boolean validateEmail(String email) throws InvalidEmailException {
-		if (email.matches("^[a-zA-Z0-9]+([_+-.]{1}[a-zA-Z0-9]+)?@[a-zA-Z0-9]+[.]{1}[a-zA-Z]{2,4}([.]{1}[a-zA-Z]{2,3})?$")) {
-			return true;
-		} else {
-			throw new InvalidEmailException(ExceptionType.INVALID_EMAIL,"Invalid entry for an email");
-		}
-	}
-	
-	public boolean validatePhoneNo(String phoneNo) throws InvalidPhoneNoException {
-		if (phoneNo.matches("^[1-9]{1,3}[ ]{1}[1-9]{1}[0-9]{9}$")) {
-			return true;
-		} else {
-			throw new InvalidPhoneNoException(ExceptionType.INVALID_PHONENO,"Invalid entry for a phone number");
-		}
-	}
-	
-	public boolean validatePassword(String password) throws InvalidPasswordException {
-		if (password.matches("^(?=.{8,}$)(?=.*[A-Z].*$)(?=.*[0-9].*$)(?=[a-zA-Z0-9]*[^a-z^A-Z^0-9^ ][a-zA-Z0-9]*$).*$")) {
-			return true;
-		} else {
-			throw new InvalidPasswordException(ExceptionType.INVALID_PASSWORD,"Invalid entry for a password");
-		}
+			logger.debug("To add another user enter 1, else enter 0: ");
+		}while(Integer.parseInt(sc.nextLine())==1);		
 	}
 
 	public static void main(String[] args) {
 		UserRegistration userReg = new UserRegistration();
 		userReg.addUser();
-		for (User user : userReg.usersList) {
-			logger.info(user);
-		}
+		userReg.usersList.forEach(user->logger.debug(user));
 		sc.close();
 	}
 }
@@ -143,8 +155,8 @@ class User {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNo=" + phoneNo
-				+ ", password=" + password + "]";
+		return "User [\nFirstName=" + firstName + "\nLastName=" + lastName + "\nEmail=" + email + "\nPhoneNo=" + phoneNo
+				+ "\nPassword=" + password + "\n]";
 	}
 
 }

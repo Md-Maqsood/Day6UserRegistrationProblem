@@ -14,8 +14,8 @@ public class UserRegistrationTest {
 		UserRegistration userReg = new UserRegistration();
 		boolean result=false;
 		try {
-			result = userReg.validateName("Maqsood");
-		} catch (InvalidNameException e) {
+			result = userReg.nameValidator.validate("Maqsood");
+		} catch (InvalidEntryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -23,19 +23,23 @@ public class UserRegistrationTest {
 	}
 	
 	@Test
-	public void givenFirstName_WhenShort_ShouldThrowInvalidNameException() throws InvalidNameException {
-		thrown.expect(InvalidNameException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validateName("Ma");
-		Assert.assertFalse(result);
+	public void givenFirstName_WhenShort_ShouldThrowInvalidEntryExceptionOfTypeName(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.nameValidator.validate("Ma");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_NAME,e.type);
+		}
 	}
 	
 	@Test
-	public void givenFirstName_WhenImproper_ShouldThrowInvalidNameException() throws InvalidNameException {
-		thrown.expect(InvalidNameException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validateName("Maq$ood");
-		Assert.assertFalse(result);
+	public void givenFirstName_WhenImproper_ShouldThrowInvalidEntryExceptionOfTypeName(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.nameValidator.validate("Maq$ood");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_NAME,e.type);
+		}
 	}
 	
 	@Test
@@ -43,8 +47,8 @@ public class UserRegistrationTest {
 		UserRegistration userReg = new UserRegistration();
 		boolean result=false;
 		try {
-			result = userReg.validateName("Alam");
-		} catch (InvalidNameException e) {
+			result = userReg.nameValidator.validate("Alam");
+		} catch (InvalidEntryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -52,19 +56,23 @@ public class UserRegistrationTest {
 	}
 	
 	@Test
-	public void givenLastName_WhenShort_ShouldThrowInvalidNameException() throws InvalidNameException {
-		thrown.expect(InvalidNameException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validateName("Al");
-		Assert.assertFalse(result);
+	public void givenLastName_WhenShort_ShouldThrowInvalidEntryExceptionOfTypeName(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.nameValidator.validate("Al");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_NAME,e.type);
+		}
 	}
 	
 	@Test
-	public void givenLastName_WhenImproper_ShouldInvalidNameThrowException() throws InvalidNameException {
-		thrown.expect(InvalidNameException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validateName("@lam");
-		Assert.assertFalse(result);
+	public void givenLastName_WhenImproper_ShouldThrowInvalidEntryExceptionOfTypeName(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.nameValidator.validate("@lam");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_NAME,e.type);
+		}
 	}
 	
 	@Test
@@ -72,8 +80,8 @@ public class UserRegistrationTest {
 		UserRegistration userReg = new UserRegistration();
 		boolean result=false;
 		try {
-			result = userReg.validateEmail("abc-100@yahoo.com");
-		} catch (InvalidEmailException e) {
+			result = userReg.emailValidator.validate("abc-100@yahoo.com");
+		} catch (InvalidEntryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -81,11 +89,13 @@ public class UserRegistrationTest {
 	}
 	
 	@Test
-	public void givenEmail_WhenImproper_ShouldThrowInvalidEmailException() throws InvalidEmailException {
-		thrown.expect(InvalidEmailException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validateEmail("abc..2002@gmail.com");
-		Assert.assertFalse(result);
+	public void givenEmail_WhenImproper_ShouldThrowInvalidEntryExceptionOfTypeEmail(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.emailValidator.validate("abc..2002@gmail.com");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_EMAIL,e.type);
+		}
 	}
 	
 	@Test
@@ -93,8 +103,8 @@ public class UserRegistrationTest {
 		UserRegistration userReg = new UserRegistration();
 		boolean result=false;
 		try {
-			result = userReg.validatePhoneNo("91 8805141523");
-		} catch (InvalidPhoneNoException e) {
+			result = userReg.phoneNoValidator.validate("91 8805141523");
+		} catch (InvalidEntryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -102,27 +112,33 @@ public class UserRegistrationTest {
 	}
 	
 	@Test
-	public void givenPhoneNo_WhenImproper_ShouldThrowInvalidPhoneNoException() throws InvalidPhoneNoException {
-		thrown.expect(InvalidPhoneNoException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validatePhoneNo("918805141523");
-		Assert.assertFalse(result);
+	public void givenPhoneNo_WhenImproper_ShouldThrowInvalidEntryExceptionOfTypePhoneNo(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.phoneNoValidator.validate("918805141523");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_PHONENO,e.type);
+		}
 	}
 	
 	@Test
-	public void givenPhoneNo_WhenHasSpecialCharacters_ShouldThrowInvalidPhoneNoException() throws InvalidPhoneNoException {
-		thrown.expect(InvalidPhoneNoException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validatePhoneNo("91 88@5141523");
-		Assert.assertFalse(result);
+	public void givenPhoneNo_WhenHasSpecialCharacters_ShouldThrowInvalidEntryExceptionOfTypePhoneNo(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.phoneNoValidator.validate("91 88@5141523");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_PHONENO,e.type);
+		}
 	}
 	
 	@Test
-	public void givenPhoneNo_WhenHasLetters_ShouldThrowInvalidPhoneNoException() throws InvalidPhoneNoException {
-		thrown.expect(InvalidPhoneNoException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validatePhoneNo("91 88c5141523");
-		Assert.assertFalse(result);
+	public void givenPhoneNo_WhenHasLetters_ShouldThrowInvalidEntryExceptionOfTypePhoneNo(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.phoneNoValidator.validate("91880c141523");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_PHONENO,e.type);
+		}
 	}
 	
 	@Test
@@ -130,8 +146,8 @@ public class UserRegistrationTest {
 		UserRegistration userReg = new UserRegistration();
 		boolean result=false;
 		try {
-			result = userReg.validatePassword("Skyi$Blue5");
-		} catch (InvalidPasswordException e) {
+			result = userReg.passwordValidator.validate("Skyi$Blue5");
+		} catch (InvalidEntryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -139,42 +155,52 @@ public class UserRegistrationTest {
 	}
 	
 	@Test
-	public void givenPassword_WhenShort_ShouldThrowInvalidPasswordException() throws InvalidPasswordException {
-		thrown.expect(InvalidPasswordException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validatePassword("S$Ble5");
-		Assert.assertFalse(result);
+	public void givenPassword_WhenShort_ShouldThrowInvalidEntryExceptionOfTypePassword(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.passwordValidator.validate("S$Ble5");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_PASSWORD,e.type);
+		}
 	}
 	
 	@Test
-	public void givenPassword_WhenHasNoUppercase_ShouldThrowInvalidPasswordException() throws InvalidPasswordException {
-		thrown.expect(InvalidPasswordException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validatePassword("skyi$blue5");
-		Assert.assertFalse(result);
+	public void givenPassword_WhenHasNoUppercase_ShouldThrowInvalidEntryExceptionOfTypePassword(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.passwordValidator.validate("skyi$blue5");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_PASSWORD,e.type);
+		}
 	}
 	
 	@Test
-	public void givenPassword_WhenHasNoNumeric_ShouldThrowInvalidPasswordException() throws InvalidPasswordException {
-		thrown.expect(InvalidPasswordException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validatePassword("Skyi$Blue");
-		Assert.assertFalse(result);
+	public void givenPassword_WhenHasNoNumeric_ShouldThrowInvalidEntryExceptionOfTypePassword(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.passwordValidator.validate("Skyi$Blue");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_PASSWORD,e.type);
+		}
 	}
 	
 	@Test
-	public void givenPassword_WhenHasNoSpecialCharacter_ShouldThrowInvalidPasswordException() throws InvalidPasswordException {
-		thrown.expect(InvalidPasswordException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validatePassword("SkyiBlue5");
-		Assert.assertFalse(result);
+	public void givenPassword_WhenHasNoSpecialCharacter_ShouldThrowInvalidEntryExceptionOfTypePassword(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.passwordValidator.validate("SkyiBlue5");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_PASSWORD,e.type);
+		}
 	}
 	
 	@Test
-	public void givenPassword_WhenHasMoreThanOneSpecialCharacters_ShouldThrowInvalidPasswordException() throws InvalidPasswordException {
-		thrown.expect(InvalidPasswordException.class);
-		UserRegistration userReg = new UserRegistration();
-		boolean result = userReg.validatePassword("Skyi$@Blue5");
-		Assert.assertFalse(result);
+	public void givenPassword_WhenHasMoreThanOneSpecialCharacters_ShouldThrowInvalidEntryExceptionOfTypePassword(){
+		UserRegistration userReg=new UserRegistration();
+		try {
+			userReg.passwordValidator.validate("Skyi$@Blue5");
+		} catch (InvalidEntryException e) {
+			Assert.assertEquals(ExceptionType.INVALID_PASSWORD,e.type);
+		}
 	}
 }

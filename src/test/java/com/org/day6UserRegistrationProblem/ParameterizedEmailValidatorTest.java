@@ -53,9 +53,9 @@ public class ParameterizedEmailValidatorTest {
 		UserRegistration userReg=new UserRegistration();
 		boolean result=false;
 		try {
-			result = userReg.validateEmail(this.email);
+			result = userReg.emailValidator.validate(this.email);
 			Assert.assertEquals(this.expectedResult, result);
-		} catch (InvalidEmailException e) {
+		} catch (InvalidEntryException e) {
 			Assert.assertEquals(ExceptionType.INVALID_EMAIL,e.type);
 		}		
 	}
